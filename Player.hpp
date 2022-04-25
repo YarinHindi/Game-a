@@ -5,16 +5,19 @@
 using namespace std;
 #include <string>
 namespace coup{
+    class Game;
     class Player{
-//    private :
-//      int cash;
-//      string name;
     public:
-        Player();
+        Game *game;
+        Player(Game & game, const string & name,const string &role);
         int cash;
         string name;
+        string playerRole;
+        string lastAction;
+        string role();
         void income() ;
         void foreign_aid() ;
+        int coins();
         void coup(string name);
     };
 }

@@ -11,6 +11,8 @@
 #include "Ambassador.hpp"
 #include "Captain.hpp"
 #include "Contessa.hpp"
+
+
 using namespace coup;
 
 #include <iostream>
@@ -21,14 +23,16 @@ using namespace std;
 int main() {
 
 	Game game_1{};
+    cout<<&game_1<<endl;
 	/* This player drew the "Duke" card, his name is Moshe
 	and he is a player in game_1 */
 	Duke duke{game_1, "Moshe"};
 	Assassin assassin{game_1, "Yossi"};
-//	Ambassador ambassador{game_1, "Meirav"};
-//	Captain captain{game_1, "Reut"};
-//	Contessa contessa{game_1, "Gilad"};
-//
+	Ambassador ambassador{game_1, "Meirav"};
+	Captain captain{game_1, "Reut"};
+	Contessa contessa{game_1, "Gilad"};
+    Captain captain1{game_1, "Yarin"};
+
 	vector<string> players = game_1.players();
 
 	/*
@@ -42,19 +46,21 @@ int main() {
 	for(string name : players){
 		cout << name << endl;
 	}
-//
-//	// prints Moshe
-//	cout << game_1.turn() << endl;
-//
-//	// throws no exceptions
-//	duke.income();
-//    cout<<duke.cash<<endl;
-//    cout<<game_1.thePlayers->at(0)<<endl;
-//	assassin.income();
-//	ambassador.income();
-//	captain.income();
-//	contessa.income();
-//
+
+	// prints Moshe
+	cout << game_1.turn() << endl;
+
+	// throws no exceptions
+	duke.income();
+	assassin.income();
+	ambassador.income();
+	captain.income();
+	contessa.income();
+    captain1.steal(assassin);
+    cout<<captain1.cash<<endl;
+    captain.block(captain1);
+    cout<<captain1.cash<<endl;
+
 //	// throws exception, it is duke's turn now
 //	assassin.income();
 //
@@ -65,8 +71,10 @@ int main() {
 //	// is income, which cannot be blocked by any role
 //	captain.block(duke);
 //
+
 //	cout << duke.coins() << endl; // prints 2
 //	cout << assassin.coins() << endl; // prints 3
+
 //
 //	// throws exception, the last operation duke performed
 //	// is foreign aid, which cannot be blocked by contessa

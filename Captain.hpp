@@ -1,13 +1,13 @@
-//using namespace std;
-//#include <string>
+#include <iostream>
+using namespace std;
+#include <string>
+#include "Player.hpp"
 namespace coup{
     class Captain :public Player{
-    private:
-        Game game;
     public:
-        Captain(Game game,string name);
-        void income() ;
-        void foreign_aid() ;
-        void coup(string name) ;
+        Captain(Game &game, const string name);
+        void block(Player &other);
+        Player *lastStolenPlayer;
+        void steal(Player &other);
     };
 }
