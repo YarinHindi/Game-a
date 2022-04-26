@@ -17,7 +17,8 @@ namespace coup{
         Game();
         vector<string> players();
         void addPlayer(Player * player);
-        void validAction(Player * player);
+        void validAction(Player & player);
+        void removePlayer(Player &player);
         string turn();
     };
 }

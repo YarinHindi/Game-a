@@ -8,11 +8,21 @@ void Captain::block(Player& other){
     if(other.lastAction!="Steal"||other.playerRole!="Captain"){
         throw invalid_argument("invalid block you cannot block this player");
     }
-    other.cash-=min(other.cash,2);
+
+    Captain* temp = static_cast<Captain*>(&other);
+    if(temp->lastStolenPlayer== nullptr){
+        throw invalid_argument("invalid block you cannot block this player");
+    }
+    other.cash-=2;
+    temp->lastStolenPlayer->cash+=2;
+    temp->lastStolenPlayer = nullptr;
+
 }
 void Captain::steal(Player &other) {
     this->lastAction="Steal";
     this->cash+=min(other.cash,2);
     other.cash= max(0,other.cash-2);
+    this->lastStolenPlayer = &other;
+    this->game->validAction(*this);
 }
 

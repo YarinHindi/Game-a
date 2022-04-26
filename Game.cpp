@@ -16,12 +16,20 @@ vector<string> Game::players() {
     }
     return ans;
 }
-void Game::validAction(Player * player){
-    if(this->thePlayers->at(this->currentTurn)!= player){
+void Game::validAction(Player & player){
+    if(this->thePlayers->at(this->currentTurn)!= &player){
         throw invalid_argument("this is not your turn");
     }
     this->currentTurn = (this->currentTurn+1) % this->thePlayers->size();
 }
 string Game::turn() {
     return this->thePlayers->at(this->currentTurn)->name;
+}
+void Game::removePlayer(Player &player) {
+    for (unsigned int i = 0; i < this->thePlayers->size(); ++i) {
+        if(this->thePlayers->at(i)==&player){
+            this->thePlayers->erase(thePlayers->begin()+i,thePlayers->begin()+i+1);
+            break;
+        }
+    }
 }

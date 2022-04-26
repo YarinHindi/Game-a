@@ -1,11 +1,17 @@
 #include "Duke.hpp"
 using namespace coup;
 Duke::Duke(Game &game, const string name): Player(game,name,"Duke") {
-//    Player(game,name);
-//    this->name = name;
-//    this->game = &game;
-//    this->game->addPlayer(this);
-//    cout<<this->game<<endl;
+
+}
+void Duke::tax() {
+    game->validAction(*this);
+    this->cash+=3;
+}
+void Duke::block(Player &player) {
+    if(player.lastAction!="foreign_aid"){
+        throw invalid_argument("invalid block you cannot block this player");
+    }
+    player.cash-=2;
 }
 
 
