@@ -14,10 +14,10 @@ namespace coup{
         string name;
         string playerRole;
         string lastAction;
-        string role();
-        void income() ;
+        string role()const;
+        virtual void income() ;
         void foreign_aid() ;
-        int coins();
+        int coins()const;
         void coup(Player& player);
     };
 }

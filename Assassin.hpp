@@ -5,8 +5,9 @@ using namespace std;
 namespace coup{
     class Assassin :public Player{
     public:
-        Assassin(Game &game, const string name);
+        Assassin(Game &game, const string & name);
         Player* lastRemovedPlayer;
+        unsigned int removedPlayerIndex;
 
     };
 }

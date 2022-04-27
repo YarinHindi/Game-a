@@ -15,11 +15,14 @@ namespace coup{
         vector<Player*>* thePlayers;
         unsigned int currentTurn;
         Game();
-        vector<string> players();
-        void addPlayer(Player * player);
+        ~Game();
+        vector<string> players() const;
+        void addPlayer(Player * player)const;
+        void revivePlayer(Player * player,unsigned int pos)const;
         void validAction(Player & player);
-        void removePlayer(Player &player);
-        string turn();
+        void removePlayer(Player &player)const;
+        string turn()const;
+        string winner()const;
     };
 }
 #endif

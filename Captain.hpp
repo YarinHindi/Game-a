@@ -5,7 +5,7 @@ using namespace std;
 namespace coup{
     class Captain :public Player{
     public:
-        Captain(Game &game, const string name);
+        Captain(Game &game, const string & name);
         void block(Player &other);
         Player *lastStolenPlayer;
         void steal(Player &other);

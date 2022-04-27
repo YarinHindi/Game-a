@@ -1,7 +1,7 @@
 #include "Captain.hpp"
 #include <algorithm>
 using namespace coup;
-Captain::Captain(Game &game, const string name): Player(game,name,"Captain") {
+Captain::Captain(Game &game, const string & name): Player(game,name,"Captain") {
         this->lastStolenPlayer = nullptr;
 }
 void Captain::block(Player& other){
@@ -9,13 +9,14 @@ void Captain::block(Player& other){
         throw invalid_argument("invalid block you cannot block this player");
     }
 
-    Captain* temp = static_cast<Captain*>(&other);
+    Captain* temp = dynamic_cast<Captain*>(&other);
     if(temp->lastStolenPlayer== nullptr){
         throw invalid_argument("invalid block you cannot block this player");
     }
     other.cash-=2;
     temp->lastStolenPlayer->cash+=2;
     temp->lastStolenPlayer = nullptr;
+    this->lastAction = "Block";
 
 }
 void Captain::steal(Player &other) {

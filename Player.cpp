@@ -1,5 +1,7 @@
 #include "Player.hpp"
 #include "Assassin.hpp"
+constexpr int coupAssassinCost = 3;
+constexpr int coupRegPlayerCost = 7;
 using namespace coup;
 Player::Player(Game & game, const string & name,const string & role) {
     this->cash = 0;
@@ -20,25 +22,30 @@ void Player::foreign_aid(){
     this->cash+=2;
     this->lastAction = "foreign_aid";
 }
-int Player::coins() {
+int Player::coins()const {
     return this->cash;
 }
-string Player::role() {
+string Player::role()const {
     return this->playerRole;
 }
 void Player::coup(Player &player) {
-    if(this->playerRole=="Assassin"&&this->cash>=3){
-        cout<<"inside"<<endl;
-        Assassin* temp = static_cast<Assassin*>(this);
+    this->game->validAction(*this);
+    if(this->playerRole=="Assassin"&&this->cash>=coupAssassinCost){
+        Assassin* temp = dynamic_cast<Assassin*>(this);
         temp->lastRemovedPlayer = &player;
+        for (unsigned int i = 0; i < this->game->thePlayers->size() ; ++i) {
+            if(this->game->thePlayers->at(i)==&player){
+                temp->removedPlayerIndex=i;
+            }
+        }
         this->game->removePlayer(player);
-        this->cash-=3;
+        this->cash-=coupAssassinCost;
         this->lastAction="Coup";
         return;
     }
-    if(this->playerRole!="Assassin"&& this->cash>=7) {
+    if(this->playerRole!="Assassin"&& this->cash>=coupRegPlayerCost) {
         this->game->removePlayer(player);
-        this->cash -= 7;
+        this->cash -= coupRegPlayerCost;
         this->lastAction="Coup";
         return;
     }
